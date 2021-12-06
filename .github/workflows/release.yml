@@ -38,7 +38,6 @@ jobs:
             git config user.name "flyzstu"
             git config user.email "flyzstu@gmail.com"
             git commit -m "Version ${CORE_LATEST_VER}"
-            git tag -a "${CORE_LATEST_VER}" -m "Version ${CORE_LATEST_VER}"
             git remote add release "https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}"
             git push -u --follow-tags release main
           fi
