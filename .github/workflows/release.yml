@@ -1,5 +1,6 @@
 name: release
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 0 * * 4"
   push:
@@ -21,7 +22,7 @@ jobs:
 
       - name: Check and release
         run: |
-          CORE_TAG_URL="https://api.github.com/repos/v2fly/v2ray-core/releases/latest"
+          CORE_TAG_URL=""
           CORE_LATEST_VER=`curl -s ${CORE_TAG_URL} --connect-timeout 5 | grep 'tag_name' | cut -d\" -f4`
           if [[ ${CORE_LATEST_VER} != v* ]]; then
             CORE_LATEST_VER=v${CORE_LATEST_VER}
@@ -34,10 +35,10 @@ jobs:
               wget $file
             done
             git add .
-            git config user.name "Darien Raymond"
-            git config user.email "admin@v2ray.com"
+            git config user.name "flyzstu"
+            git config user.email "flyzstu@gmail.com"
             git commit -m "Version ${CORE_LATEST_VER}"
             git tag -a "${CORE_LATEST_VER}" -m "Version ${CORE_LATEST_VER}"
-            git remote add release "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-            git push -u --follow-tags release master
+            git remote add release "https://${{ github.actor }}:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}"
+            git push -u --follow-tags release main
           fi
