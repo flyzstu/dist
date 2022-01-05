@@ -13,7 +13,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout out project files
         uses: actions/checkout@v2
